@@ -11,7 +11,7 @@ XDMessage.prototype.addListener = function(cb) {
 };
 
 XDMessage.prototype.messageListener = function (event) {
-	this.parentOrigin = getProperOrigin( event.origin );
+	this.setParentOrigin( event.origin );
 
 	for (var i = 0; i < this.listeners.length; i++) {
 		this.listeners[i](event);
@@ -30,6 +30,10 @@ XDMessage.prototype.sendToParent = function(message) {
 	} else {
 		window.parent.postMessage(message, this.parentOrigin);
 	}
+};
+
+XDMessage.prototype.setParentOrigin = function(origin) {
+	this.parentOrigin = getProperOrigin( origin );
 };
 
 XDMessage.prototype.getTargetFrame = function(site, cb) {
@@ -76,7 +80,7 @@ function eventListen ( targetNode, eventType, handler, useCapture ) {
 	} else if (targetNode.attachEvent) {
 		targetNode["e"+eventType+handler] = handler;
 
-		targetNode[eventType+handler] = function() { targetNode["e"+eventType+handler]( window.event ); }
+		targetNode[eventType+handler] = function() { targetNode["e"+eventType+handler]( window.event ); };
 
 		targetNode.attachEvent( "on"+eventType, targetNode[eventType+handler] );
 	} else {

@@ -4,7 +4,8 @@
   "description": "A simple cross domain messaging library",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint-fix": "./node_modules/eslint/bin/eslint.js ./index.js --fix",
+    "test": "npm run lint-fix"
   },
   "repository": {
     "type": "git",

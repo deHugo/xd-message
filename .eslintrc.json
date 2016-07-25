@@ -1,0 +1,37 @@
+{
+    "env": {
+        "browser": true,
+        "node": true,
+        "commonjs": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "rules": {
+        "indent": [
+            2,
+            "tab"
+        ],
+        "linebreak-style": [
+            2,
+            "unix"
+        ],
+        "quotes": [
+            2,
+            "double",
+            {"allowTemplateLiterals": true}
+        ],
+        "semi": [
+            2,
+            "always"
+        ],
+        "no-mixed-spaces-and-tabs": [
+            2,
+            "smart-tabs"
+        ],
+        "no-console": 0,
+        "arrow-spacing": "error",
+        "arrow-parens": ["warn", "as-needed"]
+    }
+}

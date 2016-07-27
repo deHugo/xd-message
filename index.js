@@ -37,31 +37,37 @@ XDMessage.prototype.setParentOrigin = function(origin) {
 };
 
 XDMessage.prototype.getTargetFrame = function(site, cb) {
-	var me = this;
+	var xdmessage = this;
+	var siteOrigin = getProperOrigin(site);
 
-	if (!me.sites[site]) {
+	if (!xdmessage.sites[siteOrigin]) {
 		createTargetFrame(site, function(err, frame){
-			me.sites[site] = frame;
+			xdmessage.sites[siteOrigin] = frame;
 
 			cb(null, frame);
 		});
 	} else {
-		cb( null, me.sites[site] );
+		cb( null, xdmessage.sites[siteOrigin] );
 	}
 };
 
 function createTargetFrame (site, cb) {
-	var iframe = document.createElement("iframe");
+	var origin = getProperOrigin(site);
+	var iframe = document.getElementById(origin);
 
-	iframe.width  = 1;
-	iframe.height = 1;
-	iframe.src    = site;
-	iframe.id     = site;
-	iframe.name   = site;
+	if (!iframe) {
+		iframe = document.createElement("iframe");
 
-	iframe.style.display = "none";
+		iframe.width  = 1;
+		iframe.height = 1;
+		iframe.src    = site;
+		iframe.id     = origin;
+		iframe.name   = origin;
 
-	document.body.appendChild(iframe);
+		iframe.style.display = "none";
+
+		document.body.appendChild(iframe);
+	}
 
 	eventListen(iframe, "load",function(){
 		cb( null, iframe );

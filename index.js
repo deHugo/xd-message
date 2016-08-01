@@ -55,7 +55,7 @@ function createTargetFrame (site, cb) {
 	var origin = getProperOrigin(site);
 	var iframe = document.getElementById(origin);
 
-	if (!iframe) {
+	if (!iframe && origin !== getProperOrigin( document.location.toString() )) {
 		iframe = document.createElement("iframe");
 
 		iframe.width  = 1;
